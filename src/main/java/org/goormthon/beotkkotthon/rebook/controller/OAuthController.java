@@ -1,7 +1,7 @@
 package org.goormthon.beotkkotthon.rebook.controller;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.goormthon.beotkkotthon.rebook.constant.Constants;
 import org.goormthon.beotkkotthon.rebook.dto.common.ResponseDto;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/oauth")
+@Hidden
 public class OAuthController {
     private final LoginOrRegisterByKakaoUseCase loginOrRegisterByKakaoUseCase;
     private final RedirectToKakaoLoginUseCase redirectToKakaoLoginUseCase;
@@ -32,11 +33,9 @@ public class OAuthController {
         return ResponseDto.ok(loginOrRegisterByKakaoUseCase.execute(accessToken));
     }
 
+
     @GetMapping("/login/kakao")
-    public ResponseEntity<?> loginByKakao(
-            HttpServletRequest request,
-            HttpServletResponse response
-    ) {
+    public ResponseEntity<?> loginByKakao() {
         // redirectToKakaoLoginUseCase로 리다이렉트 URL을 받아온다.
         String redirectUrl = redirectToKakaoLoginUseCase.execute();
 
@@ -45,7 +44,7 @@ public class OAuthController {
     }
 
     @GetMapping("/login/kakao/callback")
-    public ResponseDto<?> callbackByKakao(
+    public ResponseDto<String> loginByKakaoCallback(
             @RequestParam("code") String authorizationCode
     ) {
         return ResponseDto.ok(getTokenByKakaoUseCase.execute(authorizationCode));
