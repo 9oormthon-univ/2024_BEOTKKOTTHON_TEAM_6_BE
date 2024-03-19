@@ -22,7 +22,7 @@ public class OAuthController {
     private final RedirectToKakaoLoginUseCase redirectToKakaoLoginUseCase;
     private final GetTokenByKakaoUseCase getTokenByKakaoUseCase;
 
-    @PostMapping("/login/kakaos")
+    @PostMapping("/login/kakao")
     public ResponseDto<?> loginByKakao(
             HttpServletRequest request
     ) {
@@ -32,7 +32,7 @@ public class OAuthController {
         return ResponseDto.ok(loginByKakaoUseCase.execute(accessToken));
     }
 
-    @GetMapping("/login/kakaos")
+    @GetMapping("/login/kakao")
     public ResponseEntity<?> loginByKakao(
             HttpServletRequest request,
             HttpServletResponse response
@@ -44,7 +44,7 @@ public class OAuthController {
         return ResponseEntity.status(302).header("Location", redirectUrl).build();
     }
 
-    @GetMapping("/login/kakaos/callback")
+    @GetMapping("/login/kakao/callback")
     public ResponseDto<?> callbackByKakao(
             @RequestParam("code") String authorizationCode
     ) {
