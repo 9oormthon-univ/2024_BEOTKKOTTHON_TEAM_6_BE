@@ -11,8 +11,8 @@ public class Constants {
 
     public static List<String> NO_NEED_AUTH_URLS = List.of(
             "/auth/reissue",
-            "/oauth/login/kakao",
-            "/oauth/login/kakao/callback",
+            "/oauth/login/kakaos",
+            "/oauth/login/kakaos/callback",
 
             "/api-docs.html",
             "/api-docs/**",
