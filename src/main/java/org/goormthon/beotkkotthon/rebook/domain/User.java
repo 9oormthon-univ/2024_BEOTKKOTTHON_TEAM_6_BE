@@ -51,6 +51,9 @@ public class User {
     @Column(name = "environmental_temperature", nullable = false)
     private Float environmentalTemperature;
 
+    @Column(name = "device_Token")
+    private String deviceToken;
+
     @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;
 
@@ -60,6 +63,9 @@ public class User {
     @Column(name = "refresh_Token")
     private String refreshToken;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @PrimaryKeyJoinColumn
+    private UserStatus userStatus;
 
     /* -------------------------------------------- */
     /* ----------------- Functions ---------------- */
@@ -77,8 +83,9 @@ public class User {
         this.role = role;
         this.nickname = nickname;
         this.password = password;
-        this.environmentalTemperature = 36.5f;
+        this.environmentalTemperature = 17.0f;
         this.createdAt = LocalDate.now();
         this.refreshToken = null;
+        this.deviceToken = null;
     }
 }

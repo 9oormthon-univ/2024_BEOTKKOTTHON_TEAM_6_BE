@@ -8,7 +8,7 @@ import org.goormthon.beotkkotthon.rebook.dto.common.ResponseDto;
 import org.goormthon.beotkkotthon.rebook.exception.CommonException;
 import org.goormthon.beotkkotthon.rebook.exception.ErrorCode;
 import org.goormthon.beotkkotthon.rebook.usecase.oauth.GetTokenByKakaoUseCase;
-import org.goormthon.beotkkotthon.rebook.usecase.oauth.LoginByKakaoUseCase;
+import org.goormthon.beotkkotthon.rebook.usecase.oauth.LoginOrRegisterByKakaoUseCase;
 import org.goormthon.beotkkotthon.rebook.usecase.oauth.RedirectToKakaoLoginUseCase;
 import org.goormthon.beotkkotthon.rebook.utility.HeaderUtil;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/oauth")
 public class OAuthController {
-    private final LoginByKakaoUseCase loginByKakaoUseCase;
+    private final LoginOrRegisterByKakaoUseCase loginOrRegisterByKakaoUseCase;
     private final RedirectToKakaoLoginUseCase redirectToKakaoLoginUseCase;
     private final GetTokenByKakaoUseCase getTokenByKakaoUseCase;
 
@@ -29,7 +29,7 @@ public class OAuthController {
         String accessToken = HeaderUtil.refineHeader(request, Constants.AUTHORIZATION_HEADER, Constants.BEARER_PREFIX)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_AUTHORIZATION_HEADER));
 
-        return ResponseDto.ok(loginByKakaoUseCase.execute(accessToken));
+        return ResponseDto.ok(loginOrRegisterByKakaoUseCase.execute(accessToken));
     }
 
     @GetMapping("/login/kakao")
