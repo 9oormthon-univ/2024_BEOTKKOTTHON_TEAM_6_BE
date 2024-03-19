@@ -32,6 +32,9 @@ public class UserStatus {
     @Column(name = "notification_time", nullable = false)
     private LocalTime notificationTime;
 
+    /* -------------------------------------------- */
+    /* -------------- Relation Column ------------- */
+    /* -------------------------------------------- */
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")

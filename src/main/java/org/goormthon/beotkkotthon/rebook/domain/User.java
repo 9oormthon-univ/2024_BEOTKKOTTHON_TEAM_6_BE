@@ -10,13 +10,18 @@ import org.goormthon.beotkkotthon.rebook.dto.type.ERole;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"serial_id", "provider"})
+        @UniqueConstraint(
+                name = "uk_serial_id_provider",
+                columnNames = {"serial_id", "provider"}
+        )
 })
 @DynamicUpdate
 public class User {
@@ -28,11 +33,11 @@ public class User {
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "serial_id", nullable = false)
+    @Column(name = "serial_id", nullable = false, updatable = false)
     private String serialId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "provider", nullable = false)
+    @Column(name = "provider", nullable = false, updatable = false)
     private EProvider provider;
 
     @Enumerated(EnumType.STRING)
@@ -51,11 +56,11 @@ public class User {
     @Column(name = "environmental_temperature", nullable = false)
     private Float environmentalTemperature;
 
-    @Column(name = "device_Token")
-    private String deviceToken;
-
     @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;
+
+    @Column(name = "device_Token")
+    private String deviceToken;
 
     /* -------------------------------------------- */
     /* -------------- Security Column ------------- */
@@ -63,9 +68,21 @@ public class User {
     @Column(name = "refresh_Token")
     private String refreshToken;
 
+    /* -------------------------------------------- */
+    /* -------------- Relation Column ------------- */
+    /* -------------------------------------------- */
     @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
     @PrimaryKeyJoinColumn
     private UserStatus userStatus;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<StudyHistory> studyHistories = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<ChallengeRoomUser> challengeRoomUsers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<QuizHistory> quizHistories = new ArrayList<>();
 
     /* -------------------------------------------- */
     /* ----------------- Functions ---------------- */
@@ -78,14 +95,27 @@ public class User {
             String nickname,
             String password
     ) {
+        // Default Column
         this.serialId = serialId;
         this.provider = provider;
         this.role = role;
+
+        // Information Column
         this.nickname = nickname;
         this.password = password;
         this.environmentalTemperature = 17.0f;
         this.createdAt = LocalDate.now();
-        this.refreshToken = null;
         this.deviceToken = null;
+
+        // Security Column
+        this.refreshToken = null;
+    }
+
+    public void updateEnvironmentalTemperature(Float environmentalTemperature) {
+        this.environmentalTemperature = environmentalTemperature;
+    }
+
+    public void updateDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
     }
 }
