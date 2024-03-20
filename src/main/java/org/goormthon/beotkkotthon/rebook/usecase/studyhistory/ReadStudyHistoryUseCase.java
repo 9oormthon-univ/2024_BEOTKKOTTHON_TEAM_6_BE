@@ -8,5 +8,5 @@ import java.util.UUID;
 
 @UseCase
 public interface ReadStudyHistoryUseCase {
-    StudyHistoryDetailDto executeMono(Integer studyHistoryId);
+    StudyHistoryDetailDto execute(Integer studyHistoryId);
 }

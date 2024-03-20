@@ -8,5 +8,5 @@ import java.util.List;
 
 @UseCase
 public interface UpdateStudyHistoryUseCase {
-    Object update(Integer studyHistoryId, StudyHistoryRequestDto studyHistoryRequestDto);
+    Void execute(Integer studyHistoryId, StudyHistoryRequestDto studyHistoryRequestDto);
 }
