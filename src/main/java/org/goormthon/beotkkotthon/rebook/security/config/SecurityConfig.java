@@ -43,11 +43,11 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(registry ->
                         registry
-//                                .anyRequest().permitAll()
-                                .requestMatchers(Constants.NO_NEED_AUTH_URLS.toArray(String[]::new)).permitAll()
-                                .requestMatchers(Constants.ADMIN_URLS.toArray(String[]::new)).hasRole("ADMIN")
-                                .requestMatchers(Constants.USER_URLS.toArray(String[]::new)).hasAnyRole("USER", "ADMIN")
-                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
+//                                .requestMatchers(Constants.NO_NEED_AUTH_URLS.toArray(String[]::new)).permitAll()
+//                                .requestMatchers(Constants.ADMIN_URLS.toArray(String[]::new)).hasRole("ADMIN")
+//                                .requestMatchers(Constants.USER_URLS.toArray(String[]::new)).hasAnyRole("USER", "ADMIN")
+//                                .anyRequest().authenticated()
                 )
 
                 .formLogin(AbstractHttpConfigurer::disable)

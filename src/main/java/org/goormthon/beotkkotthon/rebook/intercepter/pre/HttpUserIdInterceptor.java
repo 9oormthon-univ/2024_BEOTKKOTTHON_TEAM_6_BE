@@ -9,13 +9,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 @Component
-public class UserIDInterceptor implements HandlerInterceptor {
+public class HttpUserIdInterceptor implements HandlerInterceptor {
     @Override
-    public boolean preHandle(HttpServletRequest request,
-                             HttpServletResponse response,
-                             Object handler) throws Exception {
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    public boolean preHandle(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            Object handler
+    ) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         request.setAttribute(Constants.USER_ID_ATTRIBUTE_NAME, authentication.getName());
+
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 }
