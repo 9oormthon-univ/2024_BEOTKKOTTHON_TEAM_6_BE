@@ -16,7 +16,15 @@ public class Constants {
 
             "/api-docs.html",
             "/api-docs/**",
-            "/swagger-ui/**"
+            "/swagger-ui/**",
+            "/v3/**"
+    );
+
+    public static List<String> ANONYMOUS_URLS = List.of(
+            "/api-docs.html",
+            "/api-docs",
+            "/swagger-ui",
+            "/v3"
     );
 
     public static List<String> USER_URLS = List.of(

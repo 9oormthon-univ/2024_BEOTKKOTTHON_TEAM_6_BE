@@ -2,11 +2,13 @@ package org.goormthon.beotkkotthon.rebook.service.oauth;
 
 import lombok.RequiredArgsConstructor;
 import org.goormthon.beotkkotthon.rebook.domain.User;
+import org.goormthon.beotkkotthon.rebook.domain.UserStatus;
 import org.goormthon.beotkkotthon.rebook.dto.response.JwtTokenDto;
 import org.goormthon.beotkkotthon.rebook.dto.type.EProvider;
 import org.goormthon.beotkkotthon.rebook.dto.type.ERole;
 import org.goormthon.beotkkotthon.rebook.repository.UserRepository;
-import org.goormthon.beotkkotthon.rebook.usecase.oauth.LoginByKakaoUseCase;
+import org.goormthon.beotkkotthon.rebook.repository.UserStatusRepository;
+import org.goormthon.beotkkotthon.rebook.usecase.oauth.LoginOrRegisterByKakaoUseCase;
 import org.goormthon.beotkkotthon.rebook.utility.JwtUtil;
 import org.goormthon.beotkkotthon.rebook.utility.OAuth2Util;
 import org.goormthon.beotkkotthon.rebook.utility.PasswordUtil;
@@ -18,10 +20,11 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class LoginByKakaoService implements LoginByKakaoUseCase {
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
+public class LoginOrRegisterByKakaoService implements LoginOrRegisterByKakaoUseCase {
     private final UserRepository userRepository;
+    private final UserStatusRepository userStatusRepository;
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private final OAuth2Util oAuth2Util;
     private final JwtUtil jwtUtil;
@@ -42,6 +45,11 @@ public class LoginByKakaoService implements LoginByKakaoUseCase {
                                     .role(ERole.USER)
                                     .nickname(userInfo.get("nickname"))
                                     .password(bCryptPasswordEncoder.encode(PasswordUtil.generateRandomPassword())).build()
+                    );
+
+                    UserStatus userStatus = userStatusRepository.save(
+                            UserStatus.builder()
+                                    .user(user).build()
                     );
 
                     return UserRepository.UserSecurityForm.of(user);
