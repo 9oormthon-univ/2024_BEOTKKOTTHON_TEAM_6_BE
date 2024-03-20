@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.goormthon.beotkkotthon.rebook.dto.common.ResponseDto;
+import org.goormthon.beotkkotthon.rebook.dto.request.StudyHistoryRequestDto;
 import org.goormthon.beotkkotthon.rebook.dto.response.StudyHistoryDetailDto;
 import org.goormthon.beotkkotthon.rebook.dto.response.StudyHistoryListDto;
 import org.goormthon.beotkkotthon.rebook.service.studyhistory.StudyHistoryService;
@@ -48,5 +49,19 @@ public class StudyHistoryController {
     ) {
 
         return ResponseDto.ok(studyHistoryService.readStudyHistory(studyHistoryId));
+    }
+
+    @PatchMapping("/{studyHistoryId}")
+    @Operation(summary = "공부 기록 북마크 상태 변경", description = "공부 기록 북마크 상태를 변경합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "공부 기록 북마크 상태 변경 성공",
+                    content = @Content(schema = @Schema(implementation = Object.class)))
+    })
+    public ResponseDto<Object> updateStudyHistory(
+            @PathVariable Integer studyHistoryId,
+            @RequestBody StudyHistoryRequestDto studyHistoryRequestDto
+    ) {
+
+        return ResponseDto.ok(studyHistoryService.updateStudyHistory(studyHistoryId, studyHistoryRequestDto));
     }
 }
