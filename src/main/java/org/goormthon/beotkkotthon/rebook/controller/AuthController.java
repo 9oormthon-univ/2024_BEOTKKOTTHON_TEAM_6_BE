@@ -1,5 +1,6 @@
 package org.goormthon.beotkkotthon.rebook.controller;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.goormthon.beotkkotthon.rebook.annotation.UserId;
@@ -19,6 +20,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
+@Hidden
 public class AuthController {
     private final ReissueTokenUseCase reissueTokenUseCase;
     private final WithdrawalUseCase withdrawalUseCase;
@@ -41,5 +43,4 @@ public class AuthController {
 
         return ResponseDto.ok(null);
     }
-
 }

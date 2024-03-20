@@ -6,10 +6,11 @@ import org.goormthon.beotkkotthon.rebook.exception.ErrorCode;
 
 @Getter
 public sealed class ExceptionDto permits ArgumentNotValidExceptionDto {
-    @NotNull
+    @NotNull(message = "예외 코드는 필수입니다.")
     private final Integer code;
 
-    @NotNull private final String message;
+    @NotNull(message = "예외 메시지는 필수입니다.")
+    private final String message;
 
     public ExceptionDto(ErrorCode errorCode) {
         this.code = errorCode.getCode();

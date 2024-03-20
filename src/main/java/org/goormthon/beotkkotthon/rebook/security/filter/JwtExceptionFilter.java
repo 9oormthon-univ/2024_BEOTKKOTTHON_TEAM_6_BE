@@ -61,6 +61,7 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return Constants.NO_NEED_AUTH_URLS.contains(request.getRequestURI());
+        return Constants.NO_NEED_AUTH_URLS.contains(request.getRequestURI())
+                || Constants.ANONYMOUS_URLS.stream().anyMatch(request.getRequestURI()::startsWith);
     }
 }
