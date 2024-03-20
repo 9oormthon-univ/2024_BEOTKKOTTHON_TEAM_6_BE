@@ -3,10 +3,11 @@ package org.goormthon.beotkkotthon.rebook.dto.response;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
+import org.goormthon.beotkkotthon.rebook.dto.common.SelfValidating;
 
 @Getter
 @Schema(description = "공부 기록 상세 정보")
-public class StudyHistoryDetailDto {
+public class StudyHistoryDetailDto extends SelfValidating<StudyHistoryDetailDto> {
     @Schema(description = "공부 기록 사진 url", example = "https://rebook.s3.ap-northeast-2.amazonaws.com/image.jpg")
     private final String imageUrl;
 
@@ -17,5 +18,6 @@ public class StudyHistoryDetailDto {
     public StudyHistoryDetailDto(String imageUrl, String content) {
         this.imageUrl = imageUrl;
         this.content = content;
+        validateSelf();
     }
 }

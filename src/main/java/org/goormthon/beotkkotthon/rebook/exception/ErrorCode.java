@@ -15,7 +15,6 @@ public enum ErrorCode {
     NOT_FOUND_RESOURCE(40400, HttpStatus.NOT_FOUND, "해당 리소스가 존재하지 않습니다."),
     NOT_FOUND_AUTHORIZATION_HEADER(40400, HttpStatus.NOT_FOUND, "Authorization 헤더가 존재하지 않습니다."),
     NOT_FOUND_USER(40402, HttpStatus.NOT_FOUND, "존재하지 않는 사용자입니다."),
-    NOT_FOUND_STUDY_HISTORY(40402, HttpStatus.NOT_FOUND, "존재하지 않는 공부 기록입니다."),
 
     // Invalid Argument Error
     MISSING_REQUEST_PARAMETER(40000, HttpStatus.BAD_REQUEST, "필수 요청 파라미터가 누락되었습니다."),

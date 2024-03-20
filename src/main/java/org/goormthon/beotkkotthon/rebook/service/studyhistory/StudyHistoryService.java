@@ -5,9 +5,13 @@ import org.goormthon.beotkkotthon.rebook.domain.StudyHistory;
 import org.goormthon.beotkkotthon.rebook.dto.request.StudyHistoryRequestDto;
 import org.goormthon.beotkkotthon.rebook.dto.response.StudyHistoryDetailDto;
 import org.goormthon.beotkkotthon.rebook.dto.response.StudyHistoryListDto;
+import org.goormthon.beotkkotthon.rebook.dto.response.UserDetailDto;
 import org.goormthon.beotkkotthon.rebook.exception.CommonException;
 import org.goormthon.beotkkotthon.rebook.exception.ErrorCode;
 import org.goormthon.beotkkotthon.rebook.repository.StudyHistoryRepository;
+import org.goormthon.beotkkotthon.rebook.usecase.studyhistory.ReadStudyHistoryListUseCase;
+import org.goormthon.beotkkotthon.rebook.usecase.studyhistory.ReadStudyHistoryUseCase;
+import org.goormthon.beotkkotthon.rebook.usecase.studyhistory.UpdateStudyHistoryUseCase;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,14 +19,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
-public class StudyHistoryService {
+public class StudyHistoryService implements ReadStudyHistoryUseCase, ReadStudyHistoryListUseCase, UpdateStudyHistoryUseCase {
     private final StudyHistoryRepository studyHistoryRepository;
 
-    public List<StudyHistoryListDto> readStudyHistoryList(String category, Integer page, Integer size) {
+    @Override
+    public List<StudyHistoryListDto> execute(String category, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<StudyHistory> studyHistoryList = studyHistoryRepository.findAllByRecycleCategoryName(category, pageable);
 
@@ -35,9 +40,10 @@ public class StudyHistoryService {
                 .toList();
     }
 
-    public StudyHistoryDetailDto readStudyHistory(Integer studyHistoryId) {
+    @Override
+    public StudyHistoryDetailDto executeMono(Integer studyHistoryId) {
         StudyHistory studyHistory = studyHistoryRepository.findById(studyHistoryId)
-                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_STUDY_HISTORY));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         return StudyHistoryDetailDto.builder()
                 .imageUrl(studyHistory.getImageUrl())
@@ -45,11 +51,13 @@ public class StudyHistoryService {
                 .build();
     }
 
-    public Object updateStudyHistory(Integer studyHistoryId, StudyHistoryRequestDto studyHistoryRequestDto) {
+    @Transactional
+    @Override
+    public Object update(Integer studyHistoryId, StudyHistoryRequestDto studyHistoryRequestDto) {
         StudyHistory studyHistory = studyHistoryRepository.findById(studyHistoryId)
-                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_STUDY_HISTORY));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
-        studyHistory.setIsMarking(studyHistoryRequestDto.getIsMarking());
+        studyHistory.updateMarking(studyHistoryRequestDto.isMarking());
 
         return null;
     }
