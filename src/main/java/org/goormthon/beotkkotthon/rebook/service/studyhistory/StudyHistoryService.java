@@ -3,9 +3,8 @@ package org.goormthon.beotkkotthon.rebook.service.studyhistory;
 import lombok.RequiredArgsConstructor;
 import org.goormthon.beotkkotthon.rebook.domain.StudyHistory;
 import org.goormthon.beotkkotthon.rebook.dto.request.StudyHistoryRequestDto;
-import org.goormthon.beotkkotthon.rebook.dto.response.StudyHistoryDetailDto;
-import org.goormthon.beotkkotthon.rebook.dto.response.StudyHistoryListDto;
-import org.goormthon.beotkkotthon.rebook.dto.response.UserDetailDto;
+import org.goormthon.beotkkotthon.rebook.dto.response.studyhistory.StudyHistoryDetailDto;
+import org.goormthon.beotkkotthon.rebook.dto.response.studyhistory.StudyHistoryListDto;
 import org.goormthon.beotkkotthon.rebook.exception.CommonException;
 import org.goormthon.beotkkotthon.rebook.exception.ErrorCode;
 import org.goormthon.beotkkotthon.rebook.repository.StudyHistoryRepository;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +39,7 @@ public class StudyHistoryService implements ReadStudyHistoryUseCase, ReadStudyHi
     }
 
     @Override
-    public StudyHistoryDetailDto executeMono(Integer studyHistoryId) {
+    public StudyHistoryDetailDto execute(Integer studyHistoryId) {
         StudyHistory studyHistory = studyHistoryRepository.findById(studyHistoryId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
@@ -53,7 +51,7 @@ public class StudyHistoryService implements ReadStudyHistoryUseCase, ReadStudyHi
 
     @Transactional
     @Override
-    public Object update(Integer studyHistoryId, StudyHistoryRequestDto studyHistoryRequestDto) {
+    public Void execute(Integer studyHistoryId, StudyHistoryRequestDto studyHistoryRequestDto) {
         StudyHistory studyHistory = studyHistoryRepository.findById(studyHistoryId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
