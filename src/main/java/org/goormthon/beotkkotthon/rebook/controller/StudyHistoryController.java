@@ -10,9 +10,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.goormthon.beotkkotthon.rebook.dto.common.ResponseDto;
 import org.goormthon.beotkkotthon.rebook.dto.request.StudyHistoryRequestDto;
-import org.goormthon.beotkkotthon.rebook.dto.response.StudyHistoryDetailDto;
-import org.goormthon.beotkkotthon.rebook.dto.response.StudyHistoryListDto;
-import org.goormthon.beotkkotthon.rebook.service.studyhistory.StudyHistoryService;
+import org.goormthon.beotkkotthon.rebook.dto.response.studyhistory.StudyHistoryDetailDto;
+import org.goormthon.beotkkotthon.rebook.dto.response.studyhistory.StudyHistoryListDto;
 import org.goormthon.beotkkotthon.rebook.usecase.studyhistory.ReadStudyHistoryListUseCase;
 import org.goormthon.beotkkotthon.rebook.usecase.studyhistory.ReadStudyHistoryUseCase;
 import org.goormthon.beotkkotthon.rebook.usecase.studyhistory.UpdateStudyHistoryUseCase;
@@ -54,7 +53,7 @@ public class StudyHistoryController {
             @PathVariable Integer studyHistoryId
     ) {
 
-        return ResponseDto.ok(readStudyHistoryUseCase.executeMono(studyHistoryId));
+        return ResponseDto.ok(readStudyHistoryUseCase.execute(studyHistoryId));
     }
 
     @PatchMapping("/{studyHistoryId}")
@@ -68,6 +67,6 @@ public class StudyHistoryController {
             @RequestBody @Valid StudyHistoryRequestDto studyHistoryRequestDto
     ) {
 
-        return ResponseDto.ok(updateStudyHistoryUseCase.update(studyHistoryId, studyHistoryRequestDto));
+        return ResponseDto.ok(updateStudyHistoryUseCase.execute(studyHistoryId, studyHistoryRequestDto));
     }
 }
