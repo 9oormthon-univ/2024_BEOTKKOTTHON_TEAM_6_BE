@@ -29,7 +29,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @Hidden
-public class MatchingMessageController {
+public class ChallengeWaitRoomMessageController {
     private final EnterChallengeWaitRoomUseCase enterChallengeWaitRoomUseCase;
     private final LeaveChallengeWaitRoomUseCase leaveChallengeWaitRoomUseCase;
 
@@ -40,9 +40,9 @@ public class MatchingMessageController {
         log.info("receiveMatchingMessage: {}", matchingMessageDto);
     }
 
-    // 실제 주소 /pub/matching.message/challenge.{challengeId}
+    // 실제 주소 /pub/matching.message/challenge.{challengeId}.wait.room
     // 브로커의 주소 /exchange/matching.exchange/challenge.{challengeId}.wait.room
-    @MessageMapping("matching.message/challenge.{challengeId}")
+    @MessageMapping("matching.message/challenge.{challengeId}.wait.room")
     public void sendMatchingMessage(
             StompHeaderAccessor headerAccessor,
             @UserId UUID userId,
