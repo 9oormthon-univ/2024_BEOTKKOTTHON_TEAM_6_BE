@@ -10,7 +10,7 @@ import org.goormthon.beotkkotthon.rebook.dto.common.SelfValidating;
 @Schema(description = "랜덤 퀴즈 목록 정보")
 public class QuizListDto extends SelfValidating<QuizListDto> {
     @NotNull
-    @Schema(description = "랜덤 퀴즈 id", example = "1")
+    @Schema(description = "랜덤 퀴즈 번호", example = "1")
     private final Integer id;
 
     @NotNull
