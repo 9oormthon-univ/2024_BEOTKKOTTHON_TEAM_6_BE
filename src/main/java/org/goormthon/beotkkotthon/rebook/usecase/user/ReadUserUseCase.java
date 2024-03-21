@@ -1,11 +1,11 @@
 package org.goormthon.beotkkotthon.rebook.usecase.user;
 
 import org.goormthon.beotkkotthon.rebook.annotation.UseCase;
-import org.goormthon.beotkkotthon.rebook.dto.response.UserDetailDto;
+import org.goormthon.beotkkotthon.rebook.dto.response.user.UserDto;
 
 import java.util.UUID;
 
 @UseCase
 public interface ReadUserUseCase {
-    UserDetailDto executeMono(UUID userId);
+    UserDto execute(UUID userId);
 }

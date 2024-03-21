@@ -10,7 +10,7 @@ import org.goormthon.beotkkotthon.rebook.dto.common.SelfValidating;
 @Schema(description = "공부 기록 목록 정보")
 public class StudyHistoryListDto extends SelfValidating<StudyHistoryListDto> {
     @NotNull
-    @Schema(description = "공부 기록 id", example = "1")
+    @Schema(description = "공부 기록 번호", example = "1")
     private final Integer id;
 
     @NotNull

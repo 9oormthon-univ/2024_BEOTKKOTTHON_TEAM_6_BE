@@ -21,33 +21,8 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class StudyHistoryService implements ReadStudyHistoryUseCase, ReadStudyHistoryListUseCase, UpdateStudyHistoryUseCase {
+public class UpdateStudyHistoryService implements UpdateStudyHistoryUseCase {
     private final StudyHistoryRepository studyHistoryRepository;
-
-    @Override
-    public List<StudyHistoryListDto> execute(String category, Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<StudyHistory> studyHistoryList = studyHistoryRepository.findAllByRecycleCategoryName(category, pageable);
-
-        return studyHistoryList.getContent().stream()
-                .map(studyHistory -> StudyHistoryListDto.builder()
-                        .id(studyHistory.getId())
-                        .imageUrl(studyHistory.getImageUrl())
-                        .isMarking(studyHistory.getIsMarking())
-                        .build())
-                .toList();
-    }
-
-    @Override
-    public StudyHistoryDetailDto execute(Integer studyHistoryId) {
-        StudyHistory studyHistory = studyHistoryRepository.findById(studyHistoryId)
-                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
-
-        return StudyHistoryDetailDto.builder()
-                .imageUrl(studyHistory.getImageUrl())
-                .content(studyHistory.getRecycleCategory().getDescription())
-                .build();
-    }
 
     @Transactional
     @Override
