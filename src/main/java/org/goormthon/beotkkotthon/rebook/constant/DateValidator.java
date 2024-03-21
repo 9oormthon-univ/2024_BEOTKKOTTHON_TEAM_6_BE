@@ -25,7 +25,7 @@ public class DateValidator implements ConstraintValidator<Date, LocalDate> {
         }
 
         try {
-            // LocalDate 유형은 이미 LocalDate로 구문 분석되었으므로 추가 파싱이 필요하지 않습니다.
+
         } catch(DateTimeParseException e) {
             log.error("Invalid Date Format. (yyyy-MM-dd)");
             return false;
