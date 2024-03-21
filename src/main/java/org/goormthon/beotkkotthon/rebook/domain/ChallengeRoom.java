@@ -28,6 +28,9 @@ public class ChallengeRoom {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(name = "deadline_at", nullable = false, updatable = false)
+    private LocalDateTime deadlineAt;
+
     /* -------------------------------------------- */
     /* -------------- Relation Column ------------- */
     /* -------------------------------------------- */
@@ -43,8 +46,11 @@ public class ChallengeRoom {
     /* -------------------------------------------- */
     @Builder
     public ChallengeRoom(Challenge challenge) {
+        LocalDateTime now = LocalDateTime.now();
+
         // Information Column
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = now;
+        this.deadlineAt = now.plusDays(3);
 
         // Relation Column
         this.challenge = challenge;

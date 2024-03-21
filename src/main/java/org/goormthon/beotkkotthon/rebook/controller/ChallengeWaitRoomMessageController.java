@@ -103,8 +103,8 @@ public class ChallengeWaitRoomMessageController {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
 
         String userId = (String) Objects.requireNonNull(headerAccessor.getSessionAttributes()).get("userId");
-        String challengeId = (String) Objects.requireNonNull(headerAccessor.getSessionAttributes()).get("challengeId");
+        Integer challengeId = (Integer) Objects.requireNonNull(headerAccessor.getSessionAttributes()).get("challengeId");
 
-        leaveChallengeWaitRoomUseCase.execute(UUID.fromString(userId), Integer.valueOf(challengeId));
+        leaveChallengeWaitRoomUseCase.execute(UUID.fromString(userId), challengeId);
     }
 }
