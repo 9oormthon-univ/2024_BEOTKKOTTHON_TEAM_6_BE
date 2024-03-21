@@ -28,6 +28,7 @@ dependencies {
 
     // Spring Boot Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-messaging'
 
     // JWT
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
@@ -43,12 +44,23 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'com.mysql:mysql-connector-j'
 
+    // Redis
+    implementation 'org.redisson:redisson-spring-boot-starter:3.17.7'
+
     // Spring Validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
     // Swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+
+    // Stomp
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+    //rabbitMQ
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'org.springframework.boot:spring-boot-starter-reactor-netty:3.2.3'
+    implementation 'io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64'
 
     // Lombok
     compileOnly 'org.projectlombok:lombok'
