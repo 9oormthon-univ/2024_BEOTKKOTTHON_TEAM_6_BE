@@ -16,7 +16,7 @@ import org.goormthon.beotkkotthon.rebook.dto.request.UserNotificationTimeRequest
 import org.goormthon.beotkkotthon.rebook.dto.response.user.UserDto;
 import org.goormthon.beotkkotthon.rebook.usecase.user.ReadUserUseCase;
 import org.goormthon.beotkkotthon.rebook.usecase.user.UpdateUserNotificationTimeUseCase;
-import org.goormthon.beotkkotthon.rebook.usecase.user.UpdateUserNotificationUseCase;
+import org.goormthon.beotkkotthon.rebook.usecase.user.UpdateUserNotificationStatusUseCase;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -27,7 +27,7 @@ import java.util.UUID;
 @Tag(name = "User", description = "유저 관련 API")
 public class UserController {
     private final ReadUserUseCase readUserUseCase;
-    private final UpdateUserNotificationUseCase updateUserNotificationUseCase;
+    private final UpdateUserNotificationStatusUseCase updateUserNotificationStatusUseCase;
     private final UpdateUserNotificationTimeUseCase updateUserNotificationTimeUseCase;
 
     @GetMapping("")
@@ -54,7 +54,7 @@ public class UserController {
             @RequestBody @Valid UserNotificationRequestDto userNotificationRequestDto
             ) {
 
-        return ResponseDto.ok(updateUserNotificationUseCase.execute(userId, userNotificationRequestDto));
+        return ResponseDto.ok(updateUserNotificationStatusUseCase.execute(userId, userNotificationRequestDto));
     }
 
     @PatchMapping("/notification-time")
