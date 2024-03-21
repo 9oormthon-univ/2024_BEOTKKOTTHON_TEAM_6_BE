@@ -9,9 +9,11 @@ public enum EMessage {
     ENTER("ENTER"),
     LEAVE("LEAVE"),
 
-    START("START"),
-    COMPLETE("COMPLETE"),
-    FAIL("FAIL"),
+    START_MATCHING("START_MATCHING"),
+    COMPLETE_MATCHING("COMPLETE_MATCHING"),
+    FAIL_MATCHING("FAIL_MATCHING"),
+
+    ERROR("ERROR")
     ;
 
     private final String message;

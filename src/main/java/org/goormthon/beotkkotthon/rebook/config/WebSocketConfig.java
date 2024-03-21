@@ -1,18 +1,21 @@
 package org.goormthon.beotkkotthon.rebook.config;
 
 import lombok.RequiredArgsConstructor;
-import org.goormthon.beotkkotthon.rebook.intercepter.handler.SocketErrorHandler;
+import org.goormthon.beotkkotthon.rebook.exception.socket.GlobalSocketErrorHandler;
 import org.goormthon.beotkkotthon.rebook.intercepter.pre.SocketUserIdArgumentResolver;
 import org.goormthon.beotkkotthon.rebook.intercepter.pre.SocketUserIdInterceptor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.handler.invocation.HandlerMethodArgumentResolver;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.socket.config.annotation.*;
+import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 @EnableWebSocket
@@ -31,9 +34,17 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Value("${spring.rabbitmq.password}")
     private String rabbitPassword;
 
-    private final SocketErrorHandler socketErrorHandler;
+    private final GlobalSocketErrorHandler globalSocketErrorHandler;
     private final SocketUserIdInterceptor socketUserIdInterceptor;
     private final SocketUserIdArgumentResolver socketUserIdArgumentResolver;
+
+    @Bean
+    public ServletServerContainerFactoryBean configureWebSocketContainer() {
+        ServletServerContainerFactoryBean factory = new ServletServerContainerFactoryBean();
+        factory.setMaxSessionIdleTimeout(TimeUnit.MINUTES.convert(30, TimeUnit.MILLISECONDS));
+        factory.setAsyncSendTimeout(TimeUnit.SECONDS.convert(5, TimeUnit.MILLISECONDS));
+        return factory;
+    }
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
@@ -56,7 +67,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/ws-stomp")
                 .setAllowedOrigins("*");
 
-        registry.setErrorHandler(socketErrorHandler);
+        registry.setErrorHandler(globalSocketErrorHandler);
     }
 
     @Override

@@ -15,33 +15,32 @@ public class MatchingMessageDto extends SelfValidating<MatchingMessageDto> {
     private final EMessage messageType;
 
     @Nullable
-    private final String targetId;
+    private final String receiverId;
+
+    @Nullable
+    private final Integer challengeRoomId;
 
     protected MatchingMessageDto() {
         this.messageType = null;
-        this.targetId = null;
+        this.receiverId = null;
+        this.challengeRoomId = null;
     }
 
     @Builder
-    public MatchingMessageDto(EMessage messageType, String targetId) {
+    public MatchingMessageDto(EMessage messageType, String receiverId, Integer challengeRoomId) {
         this.messageType = messageType;
-        this.targetId = targetId;
+        this.receiverId = receiverId;
+        this.challengeRoomId = challengeRoomId;
         this.validateSelf();
-    }
-
-    public MatchingMessageDto targetId(String targetId) {
-        return MatchingMessageDto.builder()
-                .messageType(this.messageType)
-                .targetId(targetId)
-                .build();
     }
 
     @Override
     public String toString() {
         return String.format(
-                "[ MatchingMessage -> MessageType: %s, TargetId: %s ]",
+                "[ MatchingMessage -> MessageType: %s, TargetId: %s, RoomId: %s ]",
                 this.messageType,
-                this.targetId
+                this.receiverId,
+                this.challengeRoomId
         );
     }
 }

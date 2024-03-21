@@ -1,5 +1,6 @@
-package org.goormthon.beotkkotthon.rebook.intercepter.handler;
+package org.goormthon.beotkkotthon.rebook.exception.socket;
 
+import lombok.extern.slf4j.Slf4j;
 import org.goormthon.beotkkotthon.rebook.dto.common.ExceptionDto;
 import org.goormthon.beotkkotthon.rebook.exception.ErrorCode;
 import org.springframework.messaging.Message;
@@ -12,10 +13,35 @@ import org.springframework.web.socket.messaging.StompSubProtocolErrorHandler;
 
 import java.nio.charset.StandardCharsets;
 
-@Component
-public class SocketErrorHandler extends StompSubProtocolErrorHandler {
+@Slf4j
+//@Component
+//public class GlobalSocketErrorHandler extends StompSubProtocolErrorHandler {
+//
+//    public GlobalSocketErrorHandler() {
+//        super();
+//    }
+//
+//    @Override
+//    public Message<byte[]> handleClientMessageProcessingError(Message<byte[]> clientMessage, Throwable throwable)
+//    {
+//        log.error("SocketErrorHandler catch handleClientMessageProcessingError : {}", throwable.getMessage());
+//
+//        StompHeaderAccessor accessor = StompHeaderAccessor.create(StompCommand.ERROR);
+//
+//        accessor.setMessage(throwable.getMessage());
+//        accessor.setLeaveMutable(true);
+//
+//        return MessageBuilder.createMessage(
+//                ErrorCode.INVALID_SOCKET_ERROR.getMessage().getBytes(StandardCharsets.UTF_8),
+//                accessor.getMessageHeaders()
+//        );
+//    }
+//}
 
-    public SocketErrorHandler() {
+@Component
+public class GlobalSocketErrorHandler extends StompSubProtocolErrorHandler {
+
+    public GlobalSocketErrorHandler() {
         super();
     }
 
