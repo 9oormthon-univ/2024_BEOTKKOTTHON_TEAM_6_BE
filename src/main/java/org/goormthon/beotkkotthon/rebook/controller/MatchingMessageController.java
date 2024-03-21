@@ -48,7 +48,7 @@ public class MatchingMessageController {
         rabbitTemplate.convertAndSend(
                 Constants.CHALLENGE_MATCHING_EXCHANGE_NAME,
                 "rooms." + matchingRoomId,
-                matchingMessageDto.sender(userId.toString())
+                matchingMessageDto
         );
 
         return;

@@ -4,20 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.goormthon.beotkkotthon.rebook.intercepter.handler.SocketErrorHandler;
 import org.goormthon.beotkkotthon.rebook.intercepter.pre.SocketUserIdArgumentResolver;
 import org.goormthon.beotkkotthon.rebook.intercepter.pre.SocketUserIdInterceptor;
-import org.goormthon.beotkkotthon.rebook.intercepter.pre.HttpUserIdArgumentResolver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.invocation.HandlerMethodArgumentResolver;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.security.authorization.AuthenticatedAuthorizationManager;
-import org.springframework.security.authorization.AuthorizationEventPublisher;
-import org.springframework.security.authorization.AuthorizationManager;
-import org.springframework.security.authorization.SpringAuthorizationEventPublisher;
-import org.springframework.security.messaging.access.intercept.AuthorizationChannelInterceptor;
-import org.springframework.security.messaging.context.AuthenticationPrincipalArgumentResolver;
-import org.springframework.security.messaging.context.SecurityContextChannelInterceptor;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.socket.config.annotation.*;
 
@@ -32,7 +23,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     private String rabbitHost;
 
     @Value("${spring.rabbitmq.port}")
-    private int rabbitPort;
+    private Integer rabbitPort;
 
     @Value("${spring.rabbitmq.username}")
     private String rabbitUsername;

@@ -3,7 +3,6 @@ package org.goormthon.beotkkotthon.rebook.dto.socket;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.goormthon.beotkkotthon.rebook.annotation.Enum;
 import org.goormthon.beotkkotthon.rebook.dto.common.SelfValidating;
 import org.goormthon.beotkkotthon.rebook.dto.type.EMessage;
@@ -15,38 +14,34 @@ public class MatchingMessageDto extends SelfValidating<MatchingMessageDto> {
     @Enum(enumClass = EMessage.class)
     private final EMessage messageType;
 
-    @NotNull
-    private final String sender;
-
-    @NotNull
-    private final Boolean isSystem;
+    @Nullable
+    private final String targetId;
 
     protected MatchingMessageDto() {
         this.messageType = null;
-        this.sender = null;
-        this.isSystem = null;
+        this.targetId = null;
     }
 
     @Builder
-    public MatchingMessageDto(EMessage messageType, String sender, Boolean isSystem) {
+    public MatchingMessageDto(EMessage messageType, String targetId) {
         this.messageType = messageType;
-        this.sender = sender;
-        this.isSystem = isSystem;
+        this.targetId = targetId;
         this.validateSelf();
     }
 
-    public MatchingMessageDto sender(String sender) {
+    public MatchingMessageDto targetId(String targetId) {
         return MatchingMessageDto.builder()
                 .messageType(this.messageType)
-                .sender(sender)
+                .targetId(targetId)
                 .build();
     }
 
     @Override
     public String toString() {
-        return "MatchingMessageDto{" +
-                "messageType=" + messageType +
-                ", sender='" + sender + '\'' +
-                '}';
+        return String.format(
+                "[ MatchingMessage -> MessageType: %s, TargetId: %s ]",
+                this.messageType,
+                this.targetId
+        );
     }
 }

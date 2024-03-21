@@ -30,8 +30,6 @@ import java.util.UUID;
 public class UserController {
     private final ReadUserUseCase readUserUseCase;
 
-    private final RabbitTemplate rabbitTemplate;
-
     @GetMapping("")
     @Operation(summary = "본인 정보 조회", description = "본인 정보를 조회합니다.")
     @ApiResponses(value = {
@@ -42,32 +40,5 @@ public class UserController {
             @Parameter(hidden = true) @UserId UUID userId
     ) {
         return ResponseDto.ok(readUserUseCase.executeMono(userId));
-    }
-
-    @GetMapping("/send")
-    public ResponseDto<?> sendMatchingMessage(
-            @Parameter(hidden = true) @UserId UUID userId
-    ) {
-        rabbitTemplate.convertAndSend(
-                Constants.CHALLENGE_MATCHING_EXCHANGE_NAME,
-                "rooms.1",
-                MatchingMessageDto.builder()
-                        .messageType(EMessage.COMPLETE)
-                        .sender("e6a8dfb8-fdb9-47f8-8a9b-b742d7af6d31")
-                        .isSystem(true)
-                        .build()
-        );
-
-        rabbitTemplate.convertAndSend(
-                Constants.CHALLENGE_MATCHING_EXCHANGE_NAME,
-                "rooms.1",
-                MatchingMessageDto.builder()
-                        .messageType(EMessage.COMPLETE)
-                        .sender("096da91d-49ab-4c6f-a649-0b6cbf0a97a3")
-                        .isSystem(true)
-                        .build()
-        );
-
-        return ResponseDto.ok(null);
     }
 }

@@ -22,7 +22,7 @@ public class RabbitMQConfig {
     private String host;
 
     @Value("${spring.rabbitmq.connection-port}")
-    private int connectionPort;
+    private Integer connectionPort;
 
     @Value("${spring.rabbitmq.username}")
     private String username;
