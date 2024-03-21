@@ -15,6 +15,8 @@ import java.util.UUID;
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
 
+    Optional<User> findBySerialId(String serialId);
+
     @Query("select u.id as id, u.role as role, u.password as password from User u where u.id = :id and u.refreshToken is not null")
     Optional<UserSecurityForm> findFormById(@Param("id") UUID id);
 

@@ -17,6 +17,7 @@ public enum ErrorCode {
     NOT_FOUND_USER(40402, HttpStatus.NOT_FOUND, "존재하지 않는 사용자입니다."),
 
     // Invalid Argument Error
+    INVALID_SOCKET_ERROR(40000, HttpStatus.BAD_REQUEST, "유효하지 않은 소켓입니다."),
     MISSING_REQUEST_PARAMETER(40000, HttpStatus.BAD_REQUEST, "필수 요청 파라미터가 누락되었습니다."),
     INVALID_ARGUMENT(40001, HttpStatus.BAD_REQUEST, "요청에 유효하지 않은 인자입니다."),
     INVALID_PARAMETER_FORMAT(40002, HttpStatus.BAD_REQUEST, "요청에 유효하지 않은 인자 형식입니다."),
