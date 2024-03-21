@@ -20,8 +20,14 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Integer> {
             "AND c.id IN :challengeIds")
     List<UserParticipateChallenge> findAllByUserParticipateInId(
             @Param("user") User user,
-            List<Integer> challengeIds
+            @Param("challengeIds") List<Integer> challengeIds
     );
+
+    // 입력받은 ChallengeId 챌린지에 참여 중인지 확인한다. 참여하고 있다면 true, 아니면 false를 반환한다.
+    @Query("SELECT CASE WHEN COUNT(cru) > 0 THEN TRUE ELSE FALSE END " +
+            "FROM ChallengeRoom cr JOIN cr.challengeRoomUsers cru " +
+            "WHERE cr.id = :challengeId AND cru.user = :user")
+    Boolean existsByIdAndChallengeRoomUsersContains(Integer challengeId, User user);
 
     interface UserParticipateChallenge {
         Integer getChallengeId();
