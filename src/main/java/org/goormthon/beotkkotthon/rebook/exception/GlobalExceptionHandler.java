@@ -1,6 +1,7 @@
 package org.goormthon.beotkkotthon.rebook.exception;
 
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.UnexpectedTypeException;
 import lombok.extern.slf4j.Slf4j;
 import org.goormthon.beotkkotthon.rebook.dto.common.ResponseDto;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -38,9 +39,21 @@ public class GlobalExceptionHandler {
     }
 
     // Validation 에서 검증 실패시 발생하는 예외
-    @ExceptionHandler(value = {MethodArgumentNotValidException.class, ConstraintViolationException.class})
+    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     public ResponseDto<?> handleArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error("GlobalExceptionHandler catch MethodArgumentNotValidException : {}", e.getMessage());
+        return ResponseDto.fail(e);
+    }
+
+    @ExceptionHandler(value = {ConstraintViolationException.class})
+    public ResponseDto<?> handleConstraintViolationException(ConstraintViolationException e) {
+        log.error("GlobalExceptionHandler catch ConstraintViolationException : {}", e.getMessage());
+        return ResponseDto.fail(e);
+    }
+
+    @ExceptionHandler(value = {UnexpectedTypeException.class})
+    public ResponseDto<?> handleUnexpectedTypeException(UnexpectedTypeException e) {
+        log.error("GlobalExceptionHandler catch UnexpectedTypeException : {}", e.getMessage());
         return ResponseDto.fail(e);
     }
 
