@@ -12,8 +12,10 @@ import lombok.RequiredArgsConstructor;
 import org.goormthon.beotkkotthon.rebook.annotation.UserId;
 import org.goormthon.beotkkotthon.rebook.dto.common.ResponseDto;
 import org.goormthon.beotkkotthon.rebook.dto.request.UserNotificationRequestDto;
+import org.goormthon.beotkkotthon.rebook.dto.request.UserNotificationTimeRequestDto;
 import org.goormthon.beotkkotthon.rebook.dto.response.user.UserDto;
 import org.goormthon.beotkkotthon.rebook.usecase.user.ReadUserUseCase;
+import org.goormthon.beotkkotthon.rebook.usecase.user.UpdateUserNotificationTimeUseCase;
 import org.goormthon.beotkkotthon.rebook.usecase.user.UpdateUserNotificationUseCase;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +28,7 @@ import java.util.UUID;
 public class UserController {
     private final ReadUserUseCase readUserUseCase;
     private final UpdateUserNotificationUseCase updateUserNotificationUseCase;
+    private final UpdateUserNotificationTimeUseCase updateUserNotificationTimeUseCase;
 
     @GetMapping("")
     @Operation(summary = "사용자 정보 조회", description = "사용자 정보를 조회합니다.")
@@ -46,11 +49,25 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "알림 설정 수정 성공",
                     content = @Content(schema = @Schema(implementation = Object.class)))
     })
-    public ResponseDto<Object> readUser(
+    public ResponseDto<Object> updateUserNotification(
             @Parameter(hidden = true) @UserId UUID userId,
             @RequestBody @Valid UserNotificationRequestDto userNotificationRequestDto
             ) {
 
         return ResponseDto.ok(updateUserNotificationUseCase.execute(userId, userNotificationRequestDto));
+    }
+
+    @PatchMapping("/notification-time")
+    @Operation(summary = "알림 시간 수정", description = "알림 시간을 수정합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "알림 시간 수정 성공",
+                    content = @Content(schema = @Schema(implementation = Object.class)))
+    })
+    public ResponseDto<Object> updateUserNotificationTime(
+            @Parameter(hidden = true) @UserId UUID userId,
+            @RequestBody @Valid UserNotificationTimeRequestDto userNotificationTimeRequestDto
+            ) {
+
+        return ResponseDto.ok(updateUserNotificationTimeUseCase.execute(userId, userNotificationTimeRequestDto));
     }
 }

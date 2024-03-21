@@ -1,6 +1,8 @@
 package org.goormthon.beotkkotthon.rebook.dto.response.user;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
@@ -27,11 +29,15 @@ public class UserDto extends SelfValidating<JwtTokenDto> {
     @Schema(description = "알림 설정 여부", example = "true")
     private final Boolean isActiveNotification;
 
-    @Size(min = 0, max = 23, message = "알림 설정 시간(시)은 0 이상 23 이하여야 합니다.")
+    @NotNull
+    @Min(value = 0, message = "알림 설정 시간(시)은 0 이상이어야 합니다.")
+    @Max(value = 23, message = "알림 설정 시간(시)은 23 이하여야 합니다.")
     @Schema(description = "알림 설정 시간: 시", example = "9")
     private final Integer notificationHour;
 
-    @Size(min = 0, max = 59, message = "알림 설정 시간(분)은 0 이상 59 이하여야 합니다.")
+    @NotNull
+    @Min(value = 0, message = "알림 설정 시간(분)은 0 이상이어야 합니다.")
+    @Max(value = 59, message = "알림 설정 시간(분)은 59 이하여야 합니다.")
     @Schema(description = "알림 설정 시간: 분", example = "15")
     private final Integer notificationMinute;
 
