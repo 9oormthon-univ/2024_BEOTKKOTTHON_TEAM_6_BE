@@ -3,19 +3,21 @@ package org.goormthon.beotkkotthon.rebook.service.user;
 import lombok.RequiredArgsConstructor;
 import org.goormthon.beotkkotthon.rebook.domain.User;
 import org.goormthon.beotkkotthon.rebook.domain.UserStatus;
+import org.goormthon.beotkkotthon.rebook.dto.request.UserNotificationRequestDto;
 import org.goormthon.beotkkotthon.rebook.dto.response.user.UserDto;
 import org.goormthon.beotkkotthon.rebook.exception.CommonException;
 import org.goormthon.beotkkotthon.rebook.exception.ErrorCode;
 import org.goormthon.beotkkotthon.rebook.repository.UserRepository;
 import org.goormthon.beotkkotthon.rebook.repository.UserStatusRepository;
 import org.goormthon.beotkkotthon.rebook.usecase.user.ReadUserUseCase;
+import org.goormthon.beotkkotthon.rebook.usecase.user.UpdateUserNotificationUseCase;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class ReadUserService implements ReadUserUseCase {
+public class UserService implements ReadUserUseCase, UpdateUserNotificationUseCase {
     private final UserRepository userRepository;
     private final UserStatusRepository userStatusRepository;
 
@@ -35,5 +37,15 @@ public class ReadUserService implements ReadUserUseCase {
                 .notificationHour(userStatus.getNotificationTime().getHour())
                 .notificationMinute(userStatus.getNotificationTime().getMinute())
                 .build();
+    }
+
+    @Override
+    public Void execute(UUID userId, UserNotificationRequestDto userNotificationRequestDto) {
+        UserStatus userStatus = userStatusRepository.findById(userId)
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
+
+        userStatus.updateEnableNotification(userNotificationRequestDto.isActiveNotification());
+
+        return null;
     }
 }
