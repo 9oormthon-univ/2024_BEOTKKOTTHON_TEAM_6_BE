@@ -11,8 +11,8 @@ import org.goormthon.beotkkotthon.rebook.exception.ErrorCode;
 import org.goormthon.beotkkotthon.rebook.repository.UserRepository;
 import org.goormthon.beotkkotthon.rebook.repository.UserStatusRepository;
 import org.goormthon.beotkkotthon.rebook.usecase.user.ReadUserUseCase;
-import org.goormthon.beotkkotthon.rebook.usecase.user.UpdateUserNotificationTimeUseCase;
 import org.goormthon.beotkkotthon.rebook.usecase.user.UpdateUserNotificationStatusUseCase;
+import org.goormthon.beotkkotthon.rebook.usecase.user.UpdateUserNotificationTimeUseCase;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,25 +20,17 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class ReadUserService implements ReadUserUseCase {
-    private final UserRepository userRepository;
+public class UpdateUserNotificationTimeService implements UpdateUserNotificationTimeUseCase {
     private final UserStatusRepository userStatusRepository;
 
+    @Transactional
     @Override
-    public UserDto execute(UUID userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
-
+    public Void execute(UUID userId, UserNotificationTimeRequestDto userNotificationTimeRequestDto) {
         UserStatus userStatus = userStatusRepository.findById(userId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
-        return UserDto.builder()
-                .nickname(user.getNickname())
-                .code(user.getSerialId())
-                .environmentalTemperature(String.format("%.1f", user.getEnvironmentalTemperature()))
-                .isActiveNotification(userStatus.getIsEnableNotification())
-                .notificationHour(userStatus.getNotificationTime().getHour())
-                .notificationMinute(userStatus.getNotificationTime().getMinute())
-                .build();
+        userStatus.updateNotificationTime(Integer.parseInt(userNotificationTimeRequestDto.notificationHour()), Integer.parseInt(userNotificationTimeRequestDto.notificationMinute()));
+
+        return null;
     }
 }
