@@ -25,7 +25,7 @@ public class StudyHistory {
     @Column(name = "image_url", nullable = false, updatable = false)
     private String imageUrl;
 
-    @Column(name = "is_marking", nullable = false, updatable = false)
+    @Column(name = "is_marking", nullable = false)
     private Boolean isMarking;
 
     @Column(name = "created_at", nullable = false, updatable = false)
