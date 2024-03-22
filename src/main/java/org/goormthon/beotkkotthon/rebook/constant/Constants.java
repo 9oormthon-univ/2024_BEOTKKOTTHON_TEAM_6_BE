@@ -30,8 +30,6 @@ public class Constants {
             "/oauth/login/kakao",
             "/oauth/login/kakao/callback",
 
-            "/temp",
-
             "/ws-stomp",
             "/pub/**",
             "/exchange/**",
@@ -47,8 +45,6 @@ public class Constants {
             "/api-docs",
             "/swagger-ui",
             "/v3",
-
-            "/temp",
 
             "/ws-stomp",
             "/pub",
