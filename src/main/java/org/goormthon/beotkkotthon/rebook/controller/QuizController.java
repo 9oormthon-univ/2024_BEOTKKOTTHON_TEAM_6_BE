@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/quizs")
+@RequestMapping("/quizzes")
 @Tag(name = "Quiz", description = "퀴즈 관련 API")
 public class QuizController {
     private final ReadQuizListUseCase readQuizListUseCase;

@@ -1,6 +1,7 @@
 package org.goormthon.beotkkotthon.rebook.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -33,7 +34,7 @@ public class ChallengeController {
             content = @Content(schema = @Schema(implementation = ChallengeListDto.class)))
     })
     public ResponseDto<?> readChallenges(
-            @UserId UUID userId
+            @Parameter(hidden = true)  @UserId UUID userId
     ) {
         return ResponseDto.ok(readChallengeListUseCase.execute(userId));
     }
@@ -45,7 +46,7 @@ public class ChallengeController {
             content = @Content(schema = @Schema(implementation = ChallengeDto.class)))
     })
     public ResponseDto<?> readChallenge(
-            @UserId UUID userId,
+            @Parameter(hidden = true) @UserId UUID userId,
             @PathVariable("challengeId") Integer challengeId
     ) {
         return ResponseDto.ok(readChallengeUseCase.execute(userId, challengeId));

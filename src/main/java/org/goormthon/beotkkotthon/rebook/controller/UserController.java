@@ -52,7 +52,7 @@ public class UserController {
     public ResponseDto<Object> updateUserNotification(
             @Parameter(hidden = true) @UserId UUID userId,
             @RequestBody @Valid UserNotificationRequestDto userNotificationRequestDto
-            ) {
+    ) {
 
         return ResponseDto.ok(updateUserNotificationStatusUseCase.execute(userId, userNotificationRequestDto));
     }
@@ -66,7 +66,7 @@ public class UserController {
     public ResponseDto<Object> updateUserNotificationTime(
             @Parameter(hidden = true) @UserId UUID userId,
             @RequestBody @Valid UserNotificationTimeRequestDto userNotificationTimeRequestDto
-            ) {
+    ) {
 
         return ResponseDto.ok(updateUserNotificationTimeUseCase.execute(userId, userNotificationTimeRequestDto));
     }
