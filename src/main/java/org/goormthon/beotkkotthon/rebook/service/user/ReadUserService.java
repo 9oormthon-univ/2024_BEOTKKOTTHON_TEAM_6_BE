@@ -33,6 +33,7 @@ public class ReadUserService implements ReadUserUseCase {
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         return UserDto.builder()
+                .id(user.getId().toString())
                 .nickname(user.getNickname())
                 .code(user.getSerialId())
                 .environmentalTemperature(String.format("%.1f", user.getEnvironmentalTemperature()))
