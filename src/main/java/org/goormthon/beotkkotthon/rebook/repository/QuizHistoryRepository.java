@@ -26,4 +26,11 @@ public interface QuizHistoryRepository extends JpaRepository<QuizHistory, Intege
             @Param("user") User user,
             @Param("whichDate") LocalDate whichDate
     );
+
+    @Query(value = "SELECT COUNT(qh) FROM QuizHistory AS qh " +
+            "WHERE qh.user = :user AND DATE(qh.createdAt) = :createdAt")
+    Integer countByUserAndCreatedAt(
+            @Param("user") User user,
+            @Param("createdAt") LocalDate createdAt
+    );
 }

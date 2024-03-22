@@ -1,12 +1,14 @@
 package org.goormthon.beotkkotthon.rebook.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.goormthon.beotkkotthon.rebook.annotation.UserId;
 import org.goormthon.beotkkotthon.rebook.dto.common.ResponseDto;
 import org.goormthon.beotkkotthon.rebook.dto.response.quiz.QuizDetailDto;
 import org.goormthon.beotkkotthon.rebook.dto.response.quiz.QuizListDto;
@@ -17,6 +19,7 @@ import org.goormthon.beotkkotthon.rebook.usecase.quiz.ReadQuizUseCase;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,9 +35,10 @@ public class QuizController {
             @ApiResponse(responseCode = "200", description = "랜덤 퀴즈 목록 조회 성공",
             content = @Content(schema = @Schema(implementation = QuizListDto.class)))
     })
-    public ResponseDto<List<QuizListDto>> readStudyHistoryList() {
-
-        return ResponseDto.ok(readQuizListUseCase.execute());
+    public ResponseDto<List<QuizListDto>> readStudyHistoryList(
+            @Parameter(hidden = true) @UserId UUID userId
+    ) {
+        return ResponseDto.ok(readQuizListUseCase.execute(userId));
     }
 
     @GetMapping("/{quizId}")
@@ -46,7 +50,6 @@ public class QuizController {
     public ResponseDto<QuizDetailDto> readStudyHistory(
             @PathVariable Integer quizId
     ) {
-
         return ResponseDto.ok(readQuizUseCase.execute(quizId));
     }
 }
