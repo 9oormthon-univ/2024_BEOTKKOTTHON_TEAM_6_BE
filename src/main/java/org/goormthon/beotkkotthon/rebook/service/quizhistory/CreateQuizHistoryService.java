@@ -40,12 +40,12 @@ public class CreateQuizHistoryService implements CreateQuizHistoryUseCase {
                 QuizHistory.builder()
                         .user(user)
                         .quiz(quiz)
-                        .userAnswer(requestDto.answer())
-                        .build()
+                        .userAnswer(requestDto.answer()).build()
         );
 
         return QuizHistoryResultDto.builder()
-                .result(quiz.getAnswer().equals(requestDto.answer()))
-                .build();
+                .id(quizHistory.getId())
+                .userAnswer(quizHistory.getUserAnswer())
+                .validAnswer(quiz.getAnswer()).build();
     }
 }

@@ -12,9 +12,7 @@ import org.goormthon.beotkkotthon.rebook.annotation.UserId;
 import org.goormthon.beotkkotthon.rebook.dto.common.ResponseDto;
 import org.goormthon.beotkkotthon.rebook.dto.response.quiz.QuizDetailDto;
 import org.goormthon.beotkkotthon.rebook.dto.response.quiz.QuizListDto;
-import org.goormthon.beotkkotthon.rebook.dto.response.studyhistory.StudyHistoryDetailDto;
-import org.goormthon.beotkkotthon.rebook.dto.response.studyhistory.StudyHistoryListDto;
-import org.goormthon.beotkkotthon.rebook.usecase.quiz.ReadQuizListUseCase;
+import org.goormthon.beotkkotthon.rebook.usecase.quiz.ReadRandomQuizListUseCase;
 import org.goormthon.beotkkotthon.rebook.usecase.quiz.ReadQuizUseCase;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +24,7 @@ import java.util.UUID;
 @RequestMapping("/quizzes")
 @Tag(name = "Quiz", description = "퀴즈 관련 API")
 public class QuizController {
-    private final ReadQuizListUseCase readQuizListUseCase;
+    private final ReadRandomQuizListUseCase readRandomQuizListUseCase;
     private final ReadQuizUseCase readQuizUseCase;
 
     @GetMapping("")
@@ -38,7 +36,7 @@ public class QuizController {
     public ResponseDto<List<QuizListDto>> readStudyHistoryList(
             @Parameter(hidden = true) @UserId UUID userId
     ) {
-        return ResponseDto.ok(readQuizListUseCase.execute(userId));
+        return ResponseDto.ok(readRandomQuizListUseCase.execute(userId));
     }
 
     @GetMapping("/{quizId}")

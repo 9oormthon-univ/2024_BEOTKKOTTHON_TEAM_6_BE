@@ -13,17 +13,13 @@ import org.goormthon.beotkkotthon.rebook.dto.response.JwtTokenDto;
 @Getter
 @Schema(description = "사용자 정보")
 public class UserDto extends SelfValidating<JwtTokenDto> {
-    @NotNull
-    @Schema(description = "사용자 UUID", example = "550e8400-e29b-41d4-a716-446655440000")
-    private final String id;
+    @NotNull(message = "사용자 ID는 필수 입력 값입니다.")
+    @Schema(description = "사용자의 암호화된 UUID", example = "550e8400-e29b-41d4-a716-446655440000")
+    private final String encryptedId;
 
     @Size(min = 1, max = 20, message = "닉네임은 1자 이상 20자 이하여야 합니다.")
     @Schema(description = "사용자 닉네임", example = "홍길동")
     private final String nickname;
-
-    @NotNull
-    @Schema(description = "사용자 시리얼 번호", example = "1")
-    private final String code;
 
     @Size(min = 0, max = 100, message = "환경 온도는 0도 이상 100도 이하여야 합니다.")
     @Schema(description = "환경 온도", example = "36.5")
@@ -47,17 +43,15 @@ public class UserDto extends SelfValidating<JwtTokenDto> {
 
     @Builder
     public UserDto(
-            String id,
             String nickname,
-            String code,
+            String encryptedId,
             String environmentalTemperature,
             Boolean isActiveNotification,
             Integer notificationHour,
             Integer notificationMinute
     ) {
-        this.id = id;
         this.nickname = nickname;
-        this.code = code;
+        this.encryptedId = encryptedId;
         this.environmentalTemperature = environmentalTemperature;
         this.isActiveNotification = isActiveNotification;
         this.notificationHour = notificationHour;
