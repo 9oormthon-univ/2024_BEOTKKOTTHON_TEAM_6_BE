@@ -2,6 +2,7 @@ package org.goormthon.beotkkotthon.rebook.security.config;
 
 import lombok.RequiredArgsConstructor;
 import org.goormthon.beotkkotthon.rebook.constant.Constants;
+import org.goormthon.beotkkotthon.rebook.security.filter.GlobalLoggerFilter;
 import org.goormthon.beotkkotthon.rebook.security.filter.JwtAuthenticationFilter;
 import org.goormthon.beotkkotthon.rebook.security.filter.JwtExceptionFilter;
 import org.goormthon.beotkkotthon.rebook.security.handler.jwt.JwtAccessDeniedHandler;
@@ -43,7 +44,6 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(registry ->
                         registry
-//                                .anyRequest().permitAll()
                                 .requestMatchers(Constants.NO_NEED_AUTH_URLS.toArray(String[]::new)).permitAll()
                                 .requestMatchers(Constants.ADMIN_URLS.toArray(String[]::new)).hasRole("ADMIN")
                                 .requestMatchers(Constants.USER_URLS.toArray(String[]::new)).hasAnyRole("USER", "ADMIN")
@@ -70,9 +70,9 @@ public class SecurityConfig {
                 .addFilterBefore(
                         new JwtExceptionFilter(),
                         JwtAuthenticationFilter.class)
-//                .addFilterBefore(
-//                        new GlobalLoggerFilter(),
-//                        JwtExceptionFilter.class)
+                .addFilterBefore(
+                        new GlobalLoggerFilter(),
+                        JwtExceptionFilter.class)
 
                 .getOrBuild();
     }

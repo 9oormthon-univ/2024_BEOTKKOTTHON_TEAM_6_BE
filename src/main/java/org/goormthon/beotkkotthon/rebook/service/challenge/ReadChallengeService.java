@@ -3,7 +3,7 @@ package org.goormthon.beotkkotthon.rebook.service.challenge;
 import lombok.RequiredArgsConstructor;
 import org.goormthon.beotkkotthon.rebook.domain.Challenge;
 import org.goormthon.beotkkotthon.rebook.domain.User;
-import org.goormthon.beotkkotthon.rebook.dto.response.ChallengeDto;
+import org.goormthon.beotkkotthon.rebook.dto.response.challenge.ChallengeDto;
 import org.goormthon.beotkkotthon.rebook.exception.CommonException;
 import org.goormthon.beotkkotthon.rebook.exception.ErrorCode;
 import org.goormthon.beotkkotthon.rebook.repository.ChallengeRepository;

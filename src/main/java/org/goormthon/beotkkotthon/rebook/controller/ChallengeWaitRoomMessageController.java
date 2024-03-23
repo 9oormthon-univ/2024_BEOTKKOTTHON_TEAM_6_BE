@@ -102,9 +102,12 @@ public class ChallengeWaitRoomMessageController {
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
 
-        String userId = (String) Objects.requireNonNull(headerAccessor.getSessionAttributes()).get("userId");
-        Integer challengeId = (Integer) Objects.requireNonNull(headerAccessor.getSessionAttributes()).get("challengeId");
+        try {
+            String userId = (String) Objects.requireNonNull(headerAccessor.getSessionAttributes()).get("userId");
+            Integer challengeId = (Integer) Objects.requireNonNull(headerAccessor.getSessionAttributes()).get("challengeId");
 
-        leaveChallengeWaitRoomUseCase.execute(UUID.fromString(userId), challengeId);
+            leaveChallengeWaitRoomUseCase.execute(UUID.fromString(userId), challengeId);
+        } catch (Exception ignored) {
+        }
     }
 }

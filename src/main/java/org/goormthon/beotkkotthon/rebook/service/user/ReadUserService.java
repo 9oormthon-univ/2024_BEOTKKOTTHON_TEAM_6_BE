@@ -33,8 +33,8 @@ public class ReadUserService implements ReadUserUseCase {
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         return UserDto.builder()
+                .encryptedId(user.getId().toString())
                 .nickname(user.getNickname())
-                .code(user.getSerialId())
                 .environmentalTemperature(String.format("%.1f", user.getEnvironmentalTemperature()))
                 .isActiveNotification(userStatus.getIsEnableNotification())
                 .notificationHour(userStatus.getNotificationTime().getHour())

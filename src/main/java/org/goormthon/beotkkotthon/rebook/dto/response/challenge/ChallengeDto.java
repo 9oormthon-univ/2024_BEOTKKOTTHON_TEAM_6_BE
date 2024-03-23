@@ -1,4 +1,4 @@
-package org.goormthon.beotkkotthon.rebook.dto.response;
+package org.goormthon.beotkkotthon.rebook.dto.response.challenge;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;

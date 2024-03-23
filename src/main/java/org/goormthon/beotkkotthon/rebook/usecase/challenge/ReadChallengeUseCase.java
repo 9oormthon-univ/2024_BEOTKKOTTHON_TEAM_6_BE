@@ -1,7 +1,7 @@
 package org.goormthon.beotkkotthon.rebook.usecase.challenge;
 
 import org.goormthon.beotkkotthon.rebook.annotation.UseCase;
-import org.goormthon.beotkkotthon.rebook.dto.response.ChallengeDto;
+import org.goormthon.beotkkotthon.rebook.dto.response.challenge.ChallengeDto;
 
 import java.util.UUID;
 

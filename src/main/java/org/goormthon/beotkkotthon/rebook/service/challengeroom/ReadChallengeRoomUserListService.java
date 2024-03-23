@@ -1,15 +1,15 @@
-package org.goormthon.beotkkotthon.rebook.service.challengeRoom;
+package org.goormthon.beotkkotthon.rebook.service.challengeroom;
 
 import lombok.RequiredArgsConstructor;
 import org.goormthon.beotkkotthon.rebook.domain.ChallengeRoom;
 import org.goormthon.beotkkotthon.rebook.domain.ChallengeRoomStudyHistory;
-import org.goormthon.beotkkotthon.rebook.dto.response.ChallengeRoomStudyHistoryDto;
-import org.goormthon.beotkkotthon.rebook.dto.response.ChallengeRoomUserDto;
+import org.goormthon.beotkkotthon.rebook.dto.response.challengeroom.ChallengeRoomStudyHistoryDto;
+import org.goormthon.beotkkotthon.rebook.dto.response.challengeroom.ChallengeRoomUserDto;
 import org.goormthon.beotkkotthon.rebook.exception.CommonException;
 import org.goormthon.beotkkotthon.rebook.exception.ErrorCode;
 import org.goormthon.beotkkotthon.rebook.repository.ChallengeRoomRepository;
 import org.goormthon.beotkkotthon.rebook.repository.ChallengeRoomStudyHistoryRepository;
-import org.goormthon.beotkkotthon.rebook.usecase.challengeRoom.ReadChallengeRoomUserListUseCase;
+import org.goormthon.beotkkotthon.rebook.usecase.challengeroom.ReadChallengeRoomUserListUseCase;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

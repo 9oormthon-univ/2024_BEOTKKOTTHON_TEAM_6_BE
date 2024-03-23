@@ -56,9 +56,11 @@ public class EnterChallengeWaitRoomService implements EnterChallengeWaitRoomUseC
                 throw new InterruptedException();
             }
 
-            if (redissonClient.getList(key).contains(value)) {
-                throw new InterruptedException();
-            }
+//            if (redissonClient.getList(key).contains(value)) {
+//                throw new InterruptedException();
+//            }
+
+            redissonClient.getList(key).remove(value);
 
             redissonClient.getList(key).add(value);
         } catch (InterruptedException e) {

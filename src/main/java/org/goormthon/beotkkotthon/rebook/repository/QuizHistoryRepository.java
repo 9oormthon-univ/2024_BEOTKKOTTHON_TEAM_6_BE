@@ -26,4 +26,11 @@ public interface QuizHistoryRepository extends JpaRepository<QuizHistory, Intege
             @Param("user") User user,
             @Param("whichDate") LocalDate whichDate
     );
+
+    @Query("SELECT qh FROM QuizHistory AS qh JOIN FETCH qh.quiz AS q JOIN FETCH q.recycleCategory " +
+            "WHERE qh.user = :user AND DATE(qh.createdAt) = :createdAt")
+    List<QuizHistory> findByUserAndCreatedAt(
+            @Param("user") User user,
+            @Param("createdAt") LocalDate createdAt
+    );
 }
