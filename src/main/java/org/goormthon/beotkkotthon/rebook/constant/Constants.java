@@ -23,6 +23,10 @@ public class Constants {
     public static final Integer LOCK_TIMEOUT = 2000;
     public static final Integer PLUS_TIMEOUT = 1000;
 
+    // OBJECT STORAGE
+    public static final String IMAGE_CONTENT_PREFIX = "image/";
+    public static final String DIRECTORY_PATH = "study_histories";
+
     public static List<String> NO_NEED_AUTH_URLS = List.of(
             "/auth/login",
             "/auth/register",
