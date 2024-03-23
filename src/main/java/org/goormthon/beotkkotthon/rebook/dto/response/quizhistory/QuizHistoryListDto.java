@@ -18,18 +18,24 @@ public class QuizHistoryListDto extends SelfValidating<QuizHistoryListDto> {
     private final String category;
 
     @NotNull
-    @Schema(description = "퀴즈 결과", example = "true")
-    private final Boolean result;
+    @Schema(description = "사용자 답변", example = "true")
+    private final Boolean userAnswer;
+
+    @NotNull
+    @Schema(description = "퀴즈 정답", example = "false")
+    private final Boolean validAnswer;
 
     @Builder
     public QuizHistoryListDto(
             Integer id,
             String category,
-            Boolean result
+            Boolean userAnswer,
+            Boolean validAnswer
     ) {
         this.id = id;
         this.category = category;
-        this.result = result;
+        this.userAnswer = userAnswer;
+        this.validAnswer = validAnswer;
         this.validateSelf();
     }
 }

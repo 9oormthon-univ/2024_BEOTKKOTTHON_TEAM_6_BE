@@ -49,6 +49,7 @@ public class AuthController {
         return ResponseDto.ok(null);
     }
 
+    @Deprecated(since = "2021-09-01", forRemoval = true)
     @PostMapping("/register")
     public ResponseDto<?> register(
             @Valid @RequestBody RegisterDto registerDto

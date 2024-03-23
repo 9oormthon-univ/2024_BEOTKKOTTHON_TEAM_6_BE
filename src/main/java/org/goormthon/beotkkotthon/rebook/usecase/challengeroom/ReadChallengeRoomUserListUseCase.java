@@ -1,7 +1,7 @@
-package org.goormthon.beotkkotthon.rebook.usecase.challengeRoom;
+package org.goormthon.beotkkotthon.rebook.usecase.challengeroom;
 
 import org.goormthon.beotkkotthon.rebook.annotation.UseCase;
-import org.goormthon.beotkkotthon.rebook.dto.response.ChallengeRoomUserDto;
+import org.goormthon.beotkkotthon.rebook.dto.response.challengeroom.ChallengeRoomUserDto;
 
 import java.util.List;
 

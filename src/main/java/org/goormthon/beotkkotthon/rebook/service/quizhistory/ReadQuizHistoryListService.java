@@ -33,7 +33,8 @@ public class ReadQuizHistoryListService implements ReadQuizHistoryListUseCase {
                 .map(quizHistory -> QuizHistoryListDto.builder()
                         .id(quizHistory.getId())
                         .category(quizHistory.getQuiz().getRecycleCategory().getName())
-                        .result(quizHistory.getUserAnswer() == quizHistory.getQuiz().getAnswer()).build())
+                        .userAnswer(quizHistory.getUserAnswer())
+                        .validAnswer(quizHistory.getQuiz().getAnswer()).build())
                 .toList();
     }
 }

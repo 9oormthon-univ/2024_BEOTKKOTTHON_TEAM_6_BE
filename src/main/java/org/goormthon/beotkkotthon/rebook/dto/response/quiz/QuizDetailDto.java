@@ -17,10 +17,19 @@ public class QuizDetailDto extends SelfValidating<QuizDetailDto> {
     @Schema(description = "퀴즈 설명", example = "치킨뼈는 일반 쓰레기이다.")
     private final String content;
 
+    @NotNull
+    @Schema(description = "퀴즈 카테고리", example = "Paper")
+    private final String category;
+
     @Builder
-    public QuizDetailDto(String title, String content) {
+    public QuizDetailDto(
+            String title,
+            String content,
+            String category
+    ) {
         this.title = title;
         this.content = content;
+        this.category = category;
         validateSelf();
     }
 }

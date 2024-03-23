@@ -16,6 +16,8 @@ import org.goormthon.beotkkotthon.rebook.dto.response.studyhistory.ImageAnalysis
 import org.goormthon.beotkkotthon.rebook.dto.response.studyhistory.StudyHistoryDetailDto;
 import org.goormthon.beotkkotthon.rebook.dto.response.studyhistory.StudyHistoryListDto;
 import org.goormthon.beotkkotthon.rebook.usecase.studyhistory.CreateImageAnalysisUseCase;
+import org.goormthon.beotkkotthon.rebook.exception.CommonException;
+import org.goormthon.beotkkotthon.rebook.exception.ErrorCode;
 import org.goormthon.beotkkotthon.rebook.usecase.studyhistory.ReadStudyHistoryListUseCase;
 import org.goormthon.beotkkotthon.rebook.usecase.studyhistory.ReadStudyHistoryUseCase;
 import org.goormthon.beotkkotthon.rebook.usecase.studyhistory.UpdateStudyHistoryUseCase;
@@ -41,12 +43,17 @@ public class StudyHistoryController {
             content = @Content(schema = @Schema(implementation = StudyHistoryListDto.class)))
     })
     public ResponseDto<List<StudyHistoryListDto>> readStudyHistoryList(
-            @RequestParam(required = false) String category,
-            @RequestParam(defaultValue = "1") Integer page,
-            @RequestParam Integer size
+            @Parameter(hidden = true) @UserId UUID userId,
+            @RequestParam(name = "isMarking", required = false) Boolean isMarking,
+            @RequestParam(name = "category") String category,
+            @RequestParam(name = "page", defaultValue = "0") Integer page,
+            @RequestParam(name = "size", defaultValue = "5") Integer size
     ) {
+        if (page < 0 || size < 0) {
+            throw new CommonException(ErrorCode.BAD_REQUEST_PARAMETER);
+        }
 
-        return ResponseDto.ok(readStudyHistoryListUseCase.execute(category, page, size));
+        return ResponseDto.ok(readStudyHistoryListUseCase.execute(userId, isMarking, category, page, size));
     }
 
     @GetMapping("/study-histories/{studyHistoryId}")

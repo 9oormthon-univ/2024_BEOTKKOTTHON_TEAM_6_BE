@@ -9,7 +9,6 @@ import org.goormthon.beotkkotthon.rebook.domain.ChallengeRoomUser;
 import org.goormthon.beotkkotthon.rebook.domain.User;
 import org.goormthon.beotkkotthon.rebook.event.CompleteMatchingEvent;
 import org.goormthon.beotkkotthon.rebook.event.EnterChallengeWaitRoomEvent;
-import org.goormthon.beotkkotthon.rebook.eventcase.MatchingEventCase;
 import org.goormthon.beotkkotthon.rebook.repository.ChallengeRepository;
 import org.goormthon.beotkkotthon.rebook.repository.ChallengeRoomRepository;
 import org.goormthon.beotkkotthon.rebook.repository.ChallengeRoomUserRepository;
@@ -31,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class MatchingService implements MatchingEventCase {
+public class MatchingService {
     private final UserRepository userRepository;
     private final ChallengeRepository challengeRepository;
     private final ChallengeRoomRepository challengeRoomRepository;
@@ -41,7 +40,6 @@ public class MatchingService implements MatchingEventCase {
 
     private final RedissonClient redissonClient;
 
-    @Override
     @Transactional
     @Async @EventListener
     public void execute(EnterChallengeWaitRoomEvent event) {

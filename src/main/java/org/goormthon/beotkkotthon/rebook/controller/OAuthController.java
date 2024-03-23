@@ -34,6 +34,7 @@ public class OAuthController {
     }
 
 
+    @Deprecated(since = "2021-09-01", forRemoval = true)
     @GetMapping("/login/kakao")
     public ResponseEntity<?> loginByKakao() {
         // redirectToKakaoLoginUseCase로 리다이렉트 URL을 받아온다.
@@ -43,6 +44,7 @@ public class OAuthController {
         return ResponseEntity.status(302).header("Location", redirectUrl).build();
     }
 
+    @Deprecated(since = "2021-09-01", forRemoval = true)
     @GetMapping("/login/kakao/callback")
     public ResponseDto<String> loginByKakaoCallback(
             @RequestParam("code") String authorizationCode
