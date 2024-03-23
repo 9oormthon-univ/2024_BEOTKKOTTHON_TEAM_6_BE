@@ -1,6 +1,7 @@
 package org.goormthon.beotkkotthon.rebook.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -8,16 +9,20 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.goormthon.beotkkotthon.rebook.annotation.UserId;
 import org.goormthon.beotkkotthon.rebook.dto.common.ResponseDto;
 import org.goormthon.beotkkotthon.rebook.dto.request.StudyHistoryRequestDto;
 import org.goormthon.beotkkotthon.rebook.dto.response.studyhistory.StudyHistoryDetailDto;
 import org.goormthon.beotkkotthon.rebook.dto.response.studyhistory.StudyHistoryListDto;
+import org.goormthon.beotkkotthon.rebook.exception.CommonException;
+import org.goormthon.beotkkotthon.rebook.exception.ErrorCode;
 import org.goormthon.beotkkotthon.rebook.usecase.studyhistory.ReadStudyHistoryListUseCase;
 import org.goormthon.beotkkotthon.rebook.usecase.studyhistory.ReadStudyHistoryUseCase;
 import org.goormthon.beotkkotthon.rebook.usecase.studyhistory.UpdateStudyHistoryUseCase;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,12 +40,17 @@ public class StudyHistoryController {
             content = @Content(schema = @Schema(implementation = StudyHistoryListDto.class)))
     })
     public ResponseDto<List<StudyHistoryListDto>> readStudyHistoryList(
-            @RequestParam(required = false) String category,
-            @RequestParam(defaultValue = "1") Integer page,
-            @RequestParam Integer size
+            @Parameter(hidden = true) @UserId UUID userId,
+            @RequestParam(name = "isMarking", required = false) Boolean isMarking,
+            @RequestParam(name = "category") String category,
+            @RequestParam(name = "page", defaultValue = "0") Integer page,
+            @RequestParam(name = "size", defaultValue = "5") Integer size
     ) {
+        if (page < 0 || size < 0) {
+            throw new CommonException(ErrorCode.BAD_REQUEST_PARAMETER);
+        }
 
-        return ResponseDto.ok(readStudyHistoryListUseCase.execute(category, page, size));
+        return ResponseDto.ok(readStudyHistoryListUseCase.execute(userId, isMarking, category, page, size));
     }
 
     @GetMapping("/{studyHistoryId}")

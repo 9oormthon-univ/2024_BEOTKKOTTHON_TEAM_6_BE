@@ -17,12 +17,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ReadStudyHistoryService implements ReadStudyHistoryUseCase {
     private final StudyHistoryRepository studyHistoryRepository;
+
+    private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     public StudyHistoryDetailDto execute(Integer studyHistoryId) {
@@ -32,6 +36,7 @@ public class ReadStudyHistoryService implements ReadStudyHistoryUseCase {
         return StudyHistoryDetailDto.builder()
                 .imageUrl(studyHistory.getImageUrl())
                 .content(studyHistory.getRecycleCategory().getDescription())
+                .createdAt(dateFormat.format(studyHistory.getCreatedAt()))
                 .build();
     }
 }
