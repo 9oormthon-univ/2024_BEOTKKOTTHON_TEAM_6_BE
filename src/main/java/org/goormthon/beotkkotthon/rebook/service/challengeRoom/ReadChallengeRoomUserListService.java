@@ -26,7 +26,7 @@ public class ReadChallengeRoomUserListService implements ReadChallengeRoomUserLi
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_RESOURCE));
 
         List<ChallengeRoomStudyHistory> challengeRoomStudyHistories
-                = challengeRoomStudyHistoryRepository.findByChallengeRoom(challengeRoom);
+                = challengeRoomStudyHistoryRepository.findAllByChallengeRoom(challengeRoom);
 
         return challengeRoom.getChallengeRoomUsers().stream()
                 .map(challengeRoomUser -> {

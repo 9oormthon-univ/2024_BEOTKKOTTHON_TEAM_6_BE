@@ -49,7 +49,6 @@ public enum ErrorCode {
 
     // External Server Error
     EXTERNAL_SERVER_ERROR(50200, HttpStatus.BAD_GATEWAY, "서버 외부 에러입니다."),
-
     ;
 
     private final Integer code;

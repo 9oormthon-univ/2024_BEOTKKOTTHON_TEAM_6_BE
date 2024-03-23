@@ -10,7 +10,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface ChallengeRoomRepository extends JpaRepository<ChallengeRoom, Integer> {
@@ -22,6 +24,12 @@ public interface ChallengeRoomRepository extends JpaRepository<ChallengeRoom, In
             "FROM ChallengeRoom cr JOIN cr.challengeRoomUsers cru " +
             "WHERE cru.user = :user AND cr.deadlineAt > :now")
     Boolean isUserParticipateInChallenge(
+            @Param("user") User user,
+            @Param("now") LocalDateTime now
+    );
+
+    @Query("select cr from ChallengeRoom cr join fetch cr.challengeRoomUsers cru where cru.user = :user and cr.deadlineAt > :now")
+    Optional<ChallengeRoom> findByUser(
             @Param("user") User user,
             @Param("now") LocalDateTime now
     );
