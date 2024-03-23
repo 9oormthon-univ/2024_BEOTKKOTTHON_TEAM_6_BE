@@ -69,6 +69,12 @@ dependencies {
     // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+
+    // Object Storage
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
+    // JSON
+    implementation group: 'net.minidev', name: 'json-smart', version: '2.5.0'
 }
 
 tasks.named('test') {
