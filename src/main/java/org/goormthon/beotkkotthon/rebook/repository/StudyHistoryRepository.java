@@ -17,6 +17,21 @@ import java.util.UUID;
 
 @Repository
 public interface StudyHistoryRepository extends JpaRepository<StudyHistory, Integer> {
-    @Query("select sh from StudyHistory sh join fetch sh.recycleCategory where sh.recycleCategory.name = :category")
-    Page<StudyHistory> findAllByRecycleCategoryName(@Param("category") String category, Pageable pageable);
+    @Query("select sh from StudyHistory sh join fetch sh.recycleCategory " +
+            "where sh.recycleCategory.name = :category and sh.user = :user")
+    Page<StudyHistory> findAllByRecycleCategoryName(
+            @Param("user") User user,
+            @Param("category") String category,
+            Pageable pageable
+    );
+
+    @Query("select sh from StudyHistory sh join fetch sh.recycleCategory " +
+            "where sh.recycleCategory.name = :category " +
+            "AND sh.isMarking = :isMarking and sh.user = :user")
+    Page<StudyHistory> findAllByRecycleCategoryNameAndIsMarking(
+            @Param("user") User user,
+            @Param("category") String category,
+            @Param("isMarking") Boolean isMarking,
+            Pageable pageable
+    );
 }

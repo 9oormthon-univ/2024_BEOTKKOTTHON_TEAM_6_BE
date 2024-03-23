@@ -223,4 +223,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+deploy.sh
+
 # End of https://www.toptal.com/developers/gitignore/api/intellij,java,visualstudiocode,windows,macos
